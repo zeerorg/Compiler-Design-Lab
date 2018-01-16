@@ -14,6 +14,12 @@ class DFA_Node:
             'b': self.b
         }
 
+    def __str__(self):
+        return "a: {}, b: {}".format(self.a, self.b)
+
+    def __repr__(self):
+        return self.__str__()
+
 class DFA:
     """
     Class which implements dfanfa and a dict from 
@@ -48,7 +54,7 @@ class DFA:
             for inp, next_state in self.__getitem__(state):
                 to_check.append(next_state)
                 string = []
-                if next_state in self.final_states:
+                if state in self.final_states:
                     string.append("+")
                 else:
                     string.append(" ")
@@ -59,3 +65,24 @@ class DFA:
 
     def get(self, key):
         return self.graph.get(key, set())
+
+    def get_raw_dfa_str(self, mapping: list):
+        final_str = ["STATE\t\tINPUT\t\tNext State"]
+        to_check = [self.init_state]
+        checked = []
+        while len(to_check) > 0:
+            state = to_check.pop(0)
+            if state in checked:
+                continue
+            checked.append(state)
+            for inp, next_state in self.__getitem__(state):
+                to_check.append(next_state)
+                string = []
+                if state in self.final_states:
+                    string.append("+")
+                else:
+                    string.append(" ")
+                string.append("{}\t\t {}\t\t {}".format(list(mapping[state]), inp, list(mapping[next_state])))
+                final_str.append(''.join(string))
+
+        return '\n'.join(final_str)

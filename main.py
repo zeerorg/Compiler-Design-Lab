@@ -25,6 +25,9 @@ def nfa_to_dfa(my_nfa: nfa.NFA):
         state_a = frozenset(state_a)
         state_b = frozenset(state_b)
 
+        to_visit.append(state_a)
+        to_visit.append(state_b)
+
         if state_a not in map_dfa_to_nfa:
             map_dfa_to_nfa.append(state_a)
         if state_b not in map_dfa_to_nfa:
@@ -38,7 +41,10 @@ def nfa_to_dfa(my_nfa: nfa.NFA):
         if my_nfa.final_state in current_states and curr_ind not in final_states:
             final_states.append(curr_ind)
 
+        visited.append(current_states)
+
     my_dfa = dfa.DFA(my_nfa.init_state, final_states, my_dfa_dict)
+    print(my_dfa.get_raw_dfa_str(map_dfa_to_nfa))
     return my_dfa
 
 # def form_dfa(state_: set, nfa: dict, dfa_):
@@ -70,6 +76,7 @@ def main():
     print(str(my_nfa))
     my_dfa = nfa_to_dfa(my_nfa)
     print(str(my_dfa))
+    print(str(my_dfa.graph))
     # dfa = nfa_to_dfa(nfa)
     # print_dfa(dfa)
     pass
