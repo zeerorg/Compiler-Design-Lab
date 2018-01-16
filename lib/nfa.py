@@ -1,21 +1,18 @@
 class NFA_Node:
 
-    def __init__(self, a: set, b: set, E: set):
+    def __init__(self, a: set, b: set):
         self.a = a
         self.b = b
-        self.E = E
 
     def as_dict():
         return {
             'a': self.a,
             'b': self.b,
-            'E': self.E
         }
 
     def __iter__(self):
         yield ('a', self.a)
         yield ('b', self.b)
-        yield ('E', self.E)
 
     def __str__(self):
         return ' '.join(self.__iter__())
@@ -47,13 +44,6 @@ class NFA:
 
     def __str__(self):
         final_str = ["STATE\t\tINPUT\t\tNext State"]
-        # for x in range(max_state):
-        #     for y in nfa[x]:
-        #         if x == nfa['initial_state']:
-        #             print("-", end='')
-        #         if x == nfa['final_state']:
-        #             print("+", end='')
-        #         print(" {}\t\t {}\t\t {}".format(x, y, nfa[x][y]))
         to_check = [self.init_state]
         checked = []
         while len(to_check) > 0:
@@ -80,14 +70,14 @@ def get_nfa() -> NFA:
     while current_state <= states:
         nfa[current_state] = None
         node = {}
-        for y in ['a', 'b', 'E']:
+        for y in ['a', 'b']:
             print(" {}\t\t  {} \t\t".format(current_state, y), end='')
             next_states = set([int(x) for x in input().split(" ")])
             states = max(states, max(next_states))
             next_states.difference_update(set([-1]))
             node[y] = set(next_states)
         
-        nfa[current_state] = NFA_Node(node['a'], node['b'], node['E'])
+        nfa[current_state] = NFA_Node(node['a'], node['b'])
 
         current_state += 1
 
