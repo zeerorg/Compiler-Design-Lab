@@ -1,17 +1,5 @@
 from lib import nfa
 
-def print_nfa(nfa):
-    max_state = max(nfa.keys())
-    print("STATE\t\tINPUT\t\tNext State")
-    for x in range(max_state):
-        for y in nfa[x]:
-            if x == nfa['initial_state']:
-                print("-", end='')
-            if x == nfa['final_state']:
-                print("+", end='')
-            print(" {}\t\t {}\t\t {}".format(x, y, nfa[x][y]))
-
-
 def nfa_to_dfa(nfa: nfa.NFA):
     dfa = {}
     dfa['initial_state'] = frozenset(nfa.init_state)
@@ -19,10 +7,12 @@ def nfa_to_dfa(nfa: nfa.NFA):
     return dfa
 
 
-def get_abs_state(state, nfa):
-    final_state = set([state])
+def get_abs_state(state: int, nfa: nfa.NFA):
+    final_state = [state]
     for x in final_state:
-        final_state.union(nfa[x]['E'])
+        for y in nfa[x].E:
+            if y not in final_state:
+                final_state.append(y)
     return final_state
 
 
@@ -52,16 +42,13 @@ def form_dfa(state_: set, nfa: dict, dfa_):
 
 
 def print_dfa(dfa):
-    # print("STATE\t\tINPUT\t\tNext State")
-    # for x in dfa:
-    #     for y in dfa[x]:
-    #         print("{}\t\t{}\t\t{}".format(x, y, dfa[x][y]))
     print(dfa)
 
 def main():
-    nfa = nfa.get_nfa()
-    dfa = nfa_to_dfa(nfa)
-    print_dfa(dfa)
+    my_nfa = nfa.get_nfa()
+    print(str(my_nfa))
+    # dfa = nfa_to_dfa(nfa)
+    # print_dfa(dfa)
     pass
 
 if __name__ == '__main__':
