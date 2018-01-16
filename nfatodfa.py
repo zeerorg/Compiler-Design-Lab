@@ -2,22 +2,28 @@ from lib import nfa
 from lib import dfa
 
 def nfa_to_dfa(my_nfa: nfa.NFA):
-    # dfa = {}
-    # dfa['initial_state'] = frozenset(nfa.init_state)
-    # dfa = form_dfa(set([nfa.init_state]), nfa, dfa)
+    # is a list of set of states of nfa which map to dfa used to generate intermediate dfa
     map_dfa_to_nfa = []
+    # the dfa dictionary
     my_dfa_dict = {}
+    # contains states to be visited
     to_visit = [frozenset([my_nfa.init_state])]
+    # contains states which have been visited hence no need to visit
     visited = []
     final_states = []
     while len(to_visit) > 0:
         current_states = to_visit.pop(0)
+        # if state is visited don't visit
         if current_states in visited:
             continue
         if current_states not in map_dfa_to_nfa:
             map_dfa_to_nfa.append(current_states)
+
+        # the next states of current state
         state_a = set()
         state_b = set()
+
+        # updating state
         for state in current_states:
             state_a.update(my_nfa[state].a)
             state_b.update(my_nfa[state].b)
@@ -25,14 +31,17 @@ def nfa_to_dfa(my_nfa: nfa.NFA):
         state_a = frozenset(state_a)
         state_b = frozenset(state_b)
 
+        # visit next
         to_visit.append(state_a)
         to_visit.append(state_b)
 
+        # for intermediate dfa -> normal dfa
         if state_a not in map_dfa_to_nfa:
             map_dfa_to_nfa.append(state_a)
         if state_b not in map_dfa_to_nfa:
             map_dfa_to_nfa.append(state_b)
 
+        # get normal dfa states (from index of intermediate states)
         curr_ind = map_dfa_to_nfa.index(current_states)
         a_ind = map_dfa_to_nfa.index(state_a)
         b_ind = map_dfa_to_nfa.index(state_b)
@@ -44,42 +53,15 @@ def nfa_to_dfa(my_nfa: nfa.NFA):
         visited.append(current_states)
 
     my_dfa = dfa.DFA(my_nfa.init_state, final_states, my_dfa_dict)
+    print("\nIntermediate DFA")
     print(my_dfa.get_raw_dfa_str(map_dfa_to_nfa))
     return my_dfa
 
-# def form_dfa(state_: set, nfa: dict, dfa_):
-#     dfa = dict(dfa_)
-#     state = frozenset(state_)
-#     if state in dfa:
-#         return dfa
-
-#     a, b = set(), set()
-#     for x in state_:
-#         for y in nfa[x]['a']:
-#             a.union(get_abs_state(y, nfa))
-
-#         for y in nfa[x]['b']:
-#             b.union(get_abs_state(y, nfa))
-
-#     print(state)
-
-#     dfa[state] = {
-#         'a': frozenset(a),
-#         'b': frozenset(b)
-#     }
-#     dfa = form_dfa(a, nfa, dfa)
-#     dfa = form_dfa(b, nfa, dfa)
-#     return dfa
-
 def main():
     my_nfa = nfa.get_nfa()
-    print(str(my_nfa))
     my_dfa = nfa_to_dfa(my_nfa)
+    print("\n")
     print(str(my_dfa))
-    print(str(my_dfa.graph))
-    # dfa = nfa_to_dfa(nfa)
-    # print_dfa(dfa)
-    pass
 
 if __name__ == '__main__':
     main()

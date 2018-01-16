@@ -58,6 +58,11 @@ class DFA:
                     string.append("+")
                 else:
                     string.append(" ")
+
+                if state == self.init_state:
+                    if string[-1] == " ":
+                        string.pop()
+                    string.append("-")
                 string.append("{}\t\t {}\t\t {}".format(state, inp, next_state))
                 final_str.append(''.join(string))
 
@@ -82,6 +87,11 @@ class DFA:
                     string.append("+")
                 else:
                     string.append(" ")
+
+                if state == self.init_state:
+                    if string[-1] == " ":
+                        string.pop()
+                    string.append("-")
                 string.append("{}\t\t {}\t\t {}".format(list(mapping[state]), inp, list(mapping[next_state])))
                 final_str.append(''.join(string))
 
