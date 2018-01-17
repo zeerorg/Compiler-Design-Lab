@@ -22,7 +22,7 @@ class DFA_Node:
 
 class DFA:
     """
-    Class which implements dfanfa and a dict from 
+    Class which implements dfa and a dict from 
 
     self.graph = {
         0: DFA_Node,
