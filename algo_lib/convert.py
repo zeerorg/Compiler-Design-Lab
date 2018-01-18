@@ -47,8 +47,9 @@ def nfa_to_dfa(my_nfa: nfa.NFA) -> dfa.DFA:
         b_ind = map_dfa_to_nfa.index(state_b)
 
         my_dfa_dict[curr_ind] = dfa.DFA_Node(a_ind, b_ind)
-        if my_nfa.final_state in current_states and curr_ind not in final_states:
-            final_states.append(curr_ind)
+        for final_state in my_nfa.final_states:
+            if final_state in current_states and curr_ind not in final_states:
+                final_states.append(curr_ind)
 
         visited.append(current_states)
 

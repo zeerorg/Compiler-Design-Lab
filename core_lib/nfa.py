@@ -17,6 +17,9 @@ class NFA_Node:
     def __str__(self):
         return ' '.join(self.__iter__())
 
+    def __getitem__(self, k):
+        return self.__getattribute__(k)
+
 class NFA:
     """
     Class which implements nfa and a dict from 
@@ -27,10 +30,10 @@ class NFA:
     }
     """
 
-    def __init__(self, init_state: int, final_state: int, graph: dict):
+    def __init__(self, init_state: int, final_states: list, graph: dict):
 
         self.init_state = init_state
-        self.final_state = final_state
+        self.final_states = final_states
         self.graph = graph
     
     def __getitem__(self, key) -> NFA_Node:

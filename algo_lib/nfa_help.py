@@ -23,5 +23,5 @@ def get_nfa() -> nfa_lib.NFA:
     final_state = int(input("Enter (single) final state: "))
     # initial_state = int(input("Enter initial state: "))
     init_state = 0
-    nfa = nfa_lib.NFA(init_state, final_state, nfa)
+    nfa = nfa_lib.NFA(init_state, [final_state], nfa)
     return nfa

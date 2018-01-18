@@ -20,6 +20,9 @@ class DFA_Node:
     def __repr__(self):
         return self.__str__()
 
+    def __getitem__(self, k):
+        return self.__getattribute__(k)
+
 class DFA:
     """
     Class which implements dfa and a dict from 
