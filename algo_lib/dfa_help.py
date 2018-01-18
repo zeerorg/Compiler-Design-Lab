@@ -25,3 +25,15 @@ def get_dfa() -> dfa_lib.DFA:
     init_state = 0
     dfa = dfa_lib.DFA(init_state, final_states, dfa)
     return dfa
+
+
+def check_string_dfa(string: str, dfa: dfa_lib.DFA) -> bool:
+    current_state = dfa.init_state
+    for x in string:
+        next_state = dfa[current_state][x]
+        current_state = next_state
+
+    if current_state in dfa.final_states:
+        return True
+
+    return False
