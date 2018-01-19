@@ -30,7 +30,7 @@ def dict_to_nfa(raw_nfa: dict, init_state: int, final_states: list):
     nfa_dict = {}
 
     for x in raw_nfa:
-        nfa_dict[x] = nfa_lib.NFA_Node(raw_nfa[x]['a'], raw_nfa[x]['b'])
+        nfa_dict[x] = nfa_lib.NFA_Node(set(raw_nfa[x]['a']), set(raw_nfa[x]['b']))
         
     return nfa_lib.NFA(init_state, final_states, nfa_dict)
 

@@ -1,30 +1,32 @@
+import pytest
+
 from algo_lib import nfa_help
 from algo_lib import dfa_help
-from algo_lib import convert
 
-nfa_dict = {
-    0: {
-        'a': [1],
-        'b': [0, 2]
-    },
-    1: {
-        'a': [2,3],
-        'b': [1,3]
-    },
-    2: {
-        'a': [2],
-        'b': [3]
-    },
-    3: {
-        'a': [3],
-        'b': [1]
-    }
-}
+from core_lib import nfa as nfa_lib
+from core_lib import dfa as dfa_lib
 
-init_state = 0
-final_state = 0
+def test_nfa_string_accept(nfa):
+    string = "bb"
+    assert nfa_help.check_string_nfa(string, nfa) == True
 
-nfa = nfa_help.dict_to_nfa(nfa_dict, init_state, [final_state])
-dfa = convert.nfa_to_dfa(nfa)
+def test_nfa_string_decline(nfa):
+    string = "aa"
+    assert nfa_help.check_string_nfa(string, nfa) == False
 
-strings = []
+def test_dfa_string_decline(dfa):
+    string = "baaa"
+    assert dfa_help.check_string_dfa(string, dfa) == False
+
+def test_dfa_string_accept(dfa):
+    string = "bbbbbbbb"
+    assert dfa_help.check_string_dfa(string, dfa) == True
+
+def test_nfa_and_dfa_equal(nfa, dfa):
+    import random
+    options = "ab"
+    length = 7
+    times = 10
+    for x in range(10):
+        string = random.choices(options, k=length)
+        assert nfa_help.check_string_nfa(string, nfa) == dfa_help.check_string_dfa(string, dfa)
