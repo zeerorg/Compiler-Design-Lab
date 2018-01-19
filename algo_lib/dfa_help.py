@@ -15,12 +15,12 @@ def get_dfa() -> dfa_lib.DFA:
             next_states.difference_update(set([-1]))
             node[y] = set(next_states)
         
-        dfa[current_state] = nfa_lib.NFA_Node(node['a'], node['b'])
+        dfa[current_state] = dfa_lib.DFA_Node(node['a'], node['b'])
 
         current_state += 1
 
-    final_state = int(input("Enter final states: "))
-    final_states = [int(x) for x in final_state.splie(" ")]
+    final_states = input("Enter final states: ")
+    final_states = [int(x) for x in final_states.split(" ")]
     # initial_state = int(input("Enter initial state: "))
     init_state = 0
     dfa = dfa_lib.DFA(init_state, final_states, dfa)

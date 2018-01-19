@@ -12,6 +12,11 @@
             "label": "test",
             "type": "shell",
             "command": "pytest -v"
+        },
+        {
+            "label": "Coverage Test",
+            "type": "shell",
+            "command": "coverage run -m pytest -v && coverage report"
         }
     ]
 }
