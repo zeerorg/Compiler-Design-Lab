@@ -26,8 +26,8 @@ def resource_nfa():
     }
 
     init_state = 0
-    final_state = 0
-    return nfa_help.dict_to_nfa(nfa_dict, init_state, [final_state])
+    final_states = [0, 1]
+    return nfa_help.dict_to_nfa(nfa_dict, init_state, final_states)
 
 @pytest.fixture
 def nfa():

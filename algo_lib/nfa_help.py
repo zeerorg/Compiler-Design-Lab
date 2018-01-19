@@ -20,10 +20,10 @@ def get_nfa() -> nfa_lib.NFA:
 
         current_state += 1
 
-    final_state = int(input("Enter (single) final state: "))
+    final_states = [int(x) for x in input("Enter final states: ").split(" ")]
     # initial_state = int(input("Enter initial state: "))
     init_state = 0
-    nfa = nfa_lib.NFA(init_state, [final_state], nfa)
+    nfa = nfa_lib.NFA(init_state, final_states, nfa)
     return nfa
 
 def dict_to_nfa(raw_nfa: dict, init_state: int, final_states: list):
