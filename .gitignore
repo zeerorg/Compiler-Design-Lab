@@ -1,2 +1,6 @@
 *.html
 **/__pycache__
+*.pyc
+.envrc
+env/
+.activate
