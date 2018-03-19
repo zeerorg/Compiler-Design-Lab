@@ -6,9 +6,7 @@ def advance(word, string, ptr):
 
 def E(string, ptr):
     """
-    >>> string = 'i+i$'
-    >>> ptr = 0
-    >>> E()
+    >>> E('i+i$', 0)
 
     """
     ptr = T(string, ptr)
