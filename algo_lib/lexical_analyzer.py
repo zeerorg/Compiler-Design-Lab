@@ -1,7 +1,7 @@
 # create a lexical analyzer
 # how to do:
 """
-  1. 
+  1. Write the worst code in your entire life. 
 """
 import string
 def main(program: str) -> list:
