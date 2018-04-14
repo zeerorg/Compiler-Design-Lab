@@ -127,7 +127,8 @@ def literal_closure():
 if __name__ == '__main__':
   test_programs = [
     ' start = 2 + 4 ',
-    ' "hello" '
+    ' "hello" ',
+    ' x = 523\ny = 3 + x\nz = x * y '
   ]
   for program in test_programs:
     tokens = main(program)

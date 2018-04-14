@@ -27,7 +27,7 @@ def T(string, ptr):
 
 def T_(string, ptr):
     if string[ptr] == '*':
-        ptr = advance('*')
+        ptr = advance('*', string, ptr)
         ptr = F(string, ptr)
         ptr = T_(string, ptr)
     return ptr
